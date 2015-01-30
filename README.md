@@ -8,14 +8,14 @@ This is a Simple application using Erlang and cowboy framework as a backend and 
 To build you will need Erlang OTP and Git.
 
 # Installing
-git clone https://github.com/Hosnidokht/Erlang-Cowboy-Angular.git
+$ git clone https://github.com/Hosnidokht/Erlang-Cowboy-Angular.git
 
-cd Erlang-Cowboy-Angular
+$ cd Erlang-Cowboy-Angular
 
-./rebar get-deps compile
+$ ./rebar get-deps compile
 
 # Running
-erl -pa ebin deps/*/ebin -s bisphoneTest.
+$ erl -pa ebin deps/*/ebin -s bisphoneTest.
 
 Finally, point your browser to:
 
