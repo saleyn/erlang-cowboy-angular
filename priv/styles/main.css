@@ -1,0 +1,27 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+body {
+    padding-top: 70px;
+    padding-bottom: 30px;
+    min-width: 970px;
+}
+
+.selected {
+    background-color: lightgreen;
+}
+
+.rtl {
+    direction: rtl;
+    text-align: right;
+    unicode-bidi: bidi-override;
+}
+
+.ltr {
+    direction: ltr;
+    text-align: left;
+    unicode-bidi: bidi-override;
+}
+
+.ng-table {
+    border: 1px solid #000;
+}

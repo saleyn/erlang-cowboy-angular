@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>Erlang, Cowboy, AngularJS</title>
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" media='screen' href='https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.3.3/ng-table.min.css'>
+    <link rel="stylesheet" media='screen' href='styles/main.css'>
+</head>
+<body>
+<div class="container-fluid col-md-10 col-md-offset-1">
+    <!-- Fixed navbar -->
+    <header>
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/">Simple CRUD using Erlang, Cowboy and AngularJS</a>
+            </div>
+        </div>
+    </header>
+
+    <div ng-view></div>
+
+    <div>
+        <footer>
+            <hr/>
+            <div>
+                <span>&copy; Hosnidokht 2015</span>
+                <span class="pull-right">version : 1</span>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
+<script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js' type="text/javascript"></script>
+<script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-route.js' type="text/javascript"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js' type="text/javascript"></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js' type="text/javascript"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.3.3/ng-table.min.js' type="text/javascript"></script>
+
+
+<!-- Coffee script compilled resources-->
+<script src='scripts/app.js' type="text/javascript"></script>
+
+<script src='scripts/services/UserService.js' type="text/javascript"></script>
+<script src='scripts/controllers/UserCtrl.js' type="text/javascript"></script>
+<script src='scripts/controllers/CreateUserCtrl.js' type="text/javascript"></script>
+<script src='scripts/controllers/EditUserCtrl.js' type="text/javascript"></script>
+<script src='scripts/controllers/DeleteUserCtrl.js' type="text/javascript"></script>
+
+</html>

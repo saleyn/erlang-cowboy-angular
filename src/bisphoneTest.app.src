@@ -1,0 +1,14 @@
+{application, bisphoneTest,
+ [
+  {description, "Erlang cowboy angular App"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  cowboy
+                 ]},
+  {mod, { bisphoneTest_app, []}},
+  {env, [{http_port, 9090}]}
+ ]}.
+

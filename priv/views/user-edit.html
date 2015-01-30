@@ -1,0 +1,60 @@
+<div class="row">
+    <div ng-controller="EditUserCtrl as euc">
+        <h1>Edit User</h1>
+
+        <form id="UpdateUserForm" name="UpdateUserForm" class="form-horizontal" role="form"
+              ng-submit="euc.updateUser()">
+            <legend class="sm-col-12">Edit Basic Information</legend>
+            <input hidden="true" value="euc.user.id"/>
+            <div class="form-group">
+                <label id="lbl_firstName" for="firstName" class="col-sm-4 control-label">First Name</label>
+
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder=""
+                           ng-model="euc.user.firstname">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl_lastName" for="lastName" class="col-sm-4 control-label">Last Name</label>
+
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder=""
+                           ng-model="euc.user.lastname">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl_mobileNo" for="mobileNo" class="col-sm-4 control-label">mobile Number</label>
+
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="mobileNo" id="mobileNo" placeholder=""
+                           ng-model="euc.user.mobileNo">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl_age" for="age" class="col-sm-4 control-label"
+                       is-required="UpdateUserForm.age">Age</label>
+
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="age" id="age"
+                           ng-model="euc.user.age">
+                </div>
+            </div>
+
+            <pre>{{ euc.user | json }}</pre>
+
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8 text-right">
+                    <a ng-href="/index.html" id="btn_cancel" class="btn btn-warning">Cancel</a>
+
+                    <button type="submit" class="btn btn-success" id="btn_create">Update User</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
