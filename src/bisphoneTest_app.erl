@@ -3,7 +3,7 @@
 -behaviour(application).
 
 %% Application callbacks
--export([start/2, stop/1, findAll/0, time/1]).
+-export([start/0, start/2, stop/1, findAll/0, time/1]).
 -include("../include/tbuser.hrl").
 -include_lib("stdlib/include/qlc.hrl").
 -define(C_ACCEPTORS,  100).
@@ -23,8 +23,8 @@ findAll() ->
   mnesia:transaction(Query).
 
 get_timestamp() ->
-  io:format("~p~n : ",[erlang:now()]),
-  {Mega, Sec, Micro} = erlang:now(),
+  io:format("~p~n : ",[erlang:timestamp()]),
+  {Mega, Sec, Micro} = erlang:timestamp(),
   list_to_binary(integer_to_list((Mega*1000000 + Sec)*1000 + Micro)).
 
 time(0) ->
@@ -35,7 +35,8 @@ time(L) ->
   time(L-1).
 
 %% ===================================================================
-
+start() ->
+  application:ensure_all_started(bisphoneTest).
 
 start(_StartType, _StartArgs) ->
   mnesia:create_schema([node()]),
@@ -50,8 +51,8 @@ start(_StartType, _StartArgs) ->
   Dispatch  = cowboy_router:compile(Routes),
   Port      = port(),
   TransOpts = [{port, Port}],
-  ProtoOpts = [{env, [{dispatch, Dispatch}]}],
-  {ok, _}   = cowboy:start_http(http, ?C_ACCEPTORS, TransOpts, ProtoOpts),
+  ProtoOpts = #{env => #{dispatch => Dispatch}},
+  {ok, _}   = cowboy:start_clear(http_listener, TransOpts, ProtoOpts),
   bisphoneTest_sup:start_link().
 
 stop(_State) ->

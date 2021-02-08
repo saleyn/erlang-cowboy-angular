@@ -15,8 +15,8 @@ init(Req, Opts) ->
 
 
 %% @doc crerate New User
-dispatch(<<"POST">>, true, undefined, Req) ->
-  {ok, Body, Req2} = cowboy_req:body(Req),
+dispatch(<<"POST">>, true, undefined, #{body_length := Len} = Req) ->
+  {ok, Body, Req2} = cowboy_req:read_body(Req, #{length => Len}),
   Json = jiffy:decode(Body, [return_maps]),
   Firstname = maps:get(<<"firstname">>, Json),
   Lastname = maps:get(<<"lastname">>, Json),
@@ -33,9 +33,9 @@ dispatch(<<"GET">>, false, undefined, Req) ->
   end,
   {atomic, Record} = mnesia:transaction(Query),
   Json = bisphoneTest_Utils:convert(Record),
-  cowboy_req:reply(200, [
-    {<<"content-type">>, <<"application/json; charset=utf-8">>}
-  ], jiffy:encode({Json}), Req);
+  cowboy_req:reply(200, #{
+    <<"content-type">> => <<"application/json; charset=utf-8">>
+  }, jiffy:encode({Json}), Req);
 
 %% @doc find a User
 dispatch(<<"GET">>, false, Binding, Req) ->
@@ -45,9 +45,9 @@ dispatch(<<"GET">>, false, Binding, Req) ->
   end,
   {atomic, Record} = mnesia:transaction(Query),
   Json = bisphoneTest_Utils:convert(Record),
-  cowboy_req:reply(200, [
-    {<<"content-type">>, <<"application/json; charset=utf-8">>}
-  ], jiffy:encode({Json}), Req);
+  cowboy_req:reply(200, #{
+    <<"content-type">> => <<"application/json; charset=utf-8">>
+  }, jiffy:encode({Json}), Req);
 
 
 %% @doc Update a User Info
@@ -71,9 +71,9 @@ dispatch(<<"PUT">>, true, Id, Req) ->
   end,
   mnesia:transaction(Write),
 
-  cowboy_req:reply(200, [
-    {<<"content-type">>, <<"application/json; charset=utf-8">>}
-  ], jiffy:encode({[{result, ok}]}), Req2);
+  cowboy_req:reply(200, #{
+    <<"content-type">> => <<"application/json; charset=utf-8">>
+  }, jiffy:encode({[{result, ok}]}), Req2);
 
 
 %% @doc delete a user
@@ -83,9 +83,9 @@ dispatch(<<"DELETE">>, false, Id, Req) ->
   end,
   mnesia:transaction(Delete),
 
-  cowboy_req:reply(200, [
-    {<<"content-type">>, <<"application/json; charset=utf-8">>}
-  ], jiffy:encode({[{result, ok}]}), Req);
+  cowboy_req:reply(200, #{
+    <<"content-type">> => <<"application/json; charset=utf-8">>
+  }, jiffy:encode({[{result, ok}]}), Req);
 
 
 dispatch(<<"POST">>, false, undefined, Req) ->
@@ -96,7 +96,7 @@ dispatch(_, _, undefined, Req) ->
   cowboy_req:reply(405, Req).
 
 createUser(Firstname, Lastname, MobileNo, Age, Req) ->
-  {Mega, Sec, Micro} = erlang:now(),
+  {Mega, Sec, Micro} = erlang:timestamp(),
   Id = list_to_binary(integer_to_list((Mega*1000000 + Sec)*1000 + Micro)),
   Write = fun() ->
     User = #tbuser{
@@ -110,6 +110,6 @@ createUser(Firstname, Lastname, MobileNo, Age, Req) ->
   end,
   mnesia:transaction(Write),
 
-  cowboy_req:reply(200, [
-    {<<"content-type">>, <<"application/json; charset=utf-8">>}
-  ], jiffy:encode({[{result, ok}]}), Req).
+  cowboy_req:reply(200, #{
+    <<"content-type">> => <<"application/json; charset=utf-8">>
+  }, jiffy:encode({[{result, ok}]}), Req).
